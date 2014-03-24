@@ -30,6 +30,8 @@
 # AUTHOR	:Srikanth Marni
 # REV DATE	:06/02/2011
 # REV		:1.1.1
+#  @copyright   (c) 2013 - 2014 Veera Srikanth Marni
+#  @license     MIT
 #
 #set -x 
 ########################################
