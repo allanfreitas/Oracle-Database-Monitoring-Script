@@ -9,6 +9,8 @@ custfunctionbasepath="${basepath}custom_lib/"
 custsqlbasepath="${custfunctionbasepath}sql/"
 sqlbasepath="${functionbasepath}sql/"
 rmanbasepath="${functionbasepath}rman/"
+abendfile="$trgbasepath""$trgdbname"/"$trgdbname"_1000_abend_step
+logfilename="$trgdbname"_ogg_status$(date +%a)"_$(date +%F).log"
 
 ####################################################################################################
 #      add functions library                                                                       #
