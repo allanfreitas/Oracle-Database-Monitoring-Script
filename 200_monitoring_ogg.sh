@@ -45,6 +45,6 @@ echo $now >>$logfilepath$logfilename
 #
 
 gg_info_status result
-echo $result
+echo "output: $result"
 result4=$(gg_info_status)
 echo $result4
