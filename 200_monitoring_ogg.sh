@@ -13,19 +13,26 @@ rmanbasepath="${functionbasepath}rman/"
 ####################################################################################################
 #      add functions library                                                                       #
 ####################################################################################################
+. ${functionbasepath}os_verify_or_make_directory.sh
 . ${functionbasepath}/dummy_func.sh
 #
 
 #
 # Check user  
 #
-os_user_check ${dbosuser}
-	rcode=$?
-	if [ "$rcode" -gt 0 ]
-	then
-		error_notification_exit $rcode "Wrong os user, user should be ${dbosuser}!!" $trgdbname 0  $LINENO
-	fi
+# os_user_check ${dbosuser}
+# 	rcode=$?
+# 	if [ "$rcode" -gt 0 ]
+# 	then
+# 		error_notification_exit $rcode "Wrong os user, user should be ${dbosuser}!!" $trgdbname 0  $LINENO
+# 	fi
 #
+# Validate Directory
+#
+os_verify_or_make_directory ${logfilepath}
+os_verify_or_make_directory ${trgbasepath}
+os_verify_or_make_directory ${trgbasepath}${trgdbname}
+#os_verify_or_make_file ${abendfile} 0
 
 #
 now=$(date "+%m/%d/%y %H:%M:%S")
