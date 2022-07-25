@@ -1,7 +1,8 @@
 #################################################
 # Default Configuration							#
 #################################################
-basepath="/tmp"
+set -x
+basepath="/Users/veeramarni/Documents/script/MONITORING_SCRIPTS/"
 trgbasepath="${basepath}targets/"
 logfilepath="${basepath}logs/"
 functionbasepath="${basepath}function_lib/"
@@ -16,7 +17,8 @@ logfilename="$trgdbname"_ogg_status$(date +%a)"_$(date +%F).log"
 #      add functions library                                                                       #
 ####################################################################################################
 . ${functionbasepath}os_verify_or_make_directory.sh
-. ${functionbasepath}/dummy_func.sh
+. ${functionbasepath}/mongo_db_list.sh
+. ${functionbasepath}/gg_info_status.sh
 #
 
 #
@@ -43,8 +45,7 @@ echo $now >>$logfilepath$logfilename
 now=$(date "+%m/%d/%y %H:%M:%S")" ====>  ########   OGG STATUS    ########"
 echo $now >>$logfilepath$logfilename
 #
+myfn () {  ls -l; }
 
-gg_info_status result
+result=$(ssh veeramarni@localhost "$(typeset -f mongo_db_list); mongo_db_list")
 echo "output: $result"
-result4=$(gg_info_status)
-echo $result4
