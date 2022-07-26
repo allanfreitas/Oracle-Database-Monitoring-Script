@@ -46,6 +46,13 @@ now=$(date "+%m/%d/%y %H:%M:%S")" ====>  ########   OGG STATUS    ########"
 echo $now >>$logfilepath$logfilename
 #
 myfn () {  ls -l; }
-
-result=$(ssh veeramarni@localhost "$(typeset -f mongo_db_list); mongo_db_list")
-echo "output: $result"
+for server in $(cat ${custfunctionbasepath}ogg_host_list.txt); do
+    (ssh ${server} "$(typeset -f gg_info_status); gg_info_status gg") >> $logfilepath$logfilename
+    rcode=$?
+    if [ $rcode -ne 0 ]
+    then
+        now=$(date "+%m/%d/%y %H:%M:%S")" ====> "$server" ogg check FAILED. Abort!! RC=$rcode"
+        echo $now >>$logfilepath$logfilename
+    fi
+done
+cat $logfilepath$logfilename
