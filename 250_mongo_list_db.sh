@@ -1,17 +1,7 @@
-#!/bin/bash
-#
-####################################################################################################
-#                S T A G I N G    O V E R L A Y - Source Database Tasks                            #
-#                           1000_source_processing.sh
-####################################################################################################
-#
-# Import properties file
-#
-. clone_environment.properties
 #################################################
 # Default Configuration							#
 #################################################
-set -x
+basepath="/Users/veeramarni/Documents/script/MONITORING_SCRIPTS/"
 trgbasepath="${basepath}targets/"
 logfilepath="${basepath}logs/"
 functionbasepath="${basepath}function_lib/"
@@ -20,15 +10,14 @@ custsqlbasepath="${custfunctionbasepath}sql/"
 sqlbasepath="${functionbasepath}sql/"
 rmanbasepath="${functionbasepath}rman/"
 abendfile="$trgbasepath""$trgdbname"/"$trgdbname"_1000_abend_step
-logfilename="$trgdbname"_ogg_status$(date +%a)"_$(date +%F).log"
+logfilename="$trgdbname"_mongo_db_list$(date +%a)"_$(date +%F).log"
 
 ####################################################################################################
 #      add functions library                                                                       #
 ####################################################################################################
 . ${functionbasepath}os_verify_or_make_directory.sh
 . ${functionbasepath}mongo_db_list.sh
-. ${functionbasepath}/send_notification.sh
-. ${functionbasepath}/gg_info_status.sh
+. ${functionbasepath}dummy_func.sh
 #
 
 #
@@ -52,16 +41,23 @@ os_verify_or_make_directory ${trgbasepath}${trgdbname}
 now=$(date "+%m/%d/%y %H:%M:%S")
 echo $now >>$logfilepath$logfilename
 #
-now=$(date "+%m/%d/%y %H:%M:%S")" ====>  ########   OGG STATUS    ########"
+now=$(date "+%m/%d/%y %H:%M:%S")" ====>  ########   MONGO DB LIST    ########"
 echo $now >>$logfilepath$logfilename
 #
-while IFS=, read -r __host_name __gi_home_path __db_home_path ; do
-    (ssh ${__host_name} "$(typeset -f gg_info_status); gg_info_status $__gi_home_path $__db_home_path ") >> $logfilepath$logfilename
+# mongo_db_list /usr/local/bin
+while IFS=, read -r __host_name __home_path ; do
+printf '%s is the package manager for %s\n' "$__host_name" "$__home_path"
+    # mongo_db_list $__home_path >> $logfilepath$logfilename
+    echo "" |  (ssh ${__host_name} "$(typeset -f mongo_db_list); mongo_db_list $__home_path ") >> $logfilepath$logfilename
+    # echo "" | ssh ${__host_name} "uname"
     rcode=$?
     if [ $rcode -ne 0 ]
     then
-        now=$(date "+%m/%d/%y %H:%M:%S")" ====> "$server" ogg check FAILED. Abort!! RC=$rcode"
+        now=$(date "+%m/%d/%y %H:%M:%S")" ====> "$__host_name" mongo check FAILED. Abort!! RC=$rcode"
         echo $now >>$logfilepath$logfilename
     fi
-done < ${custfunctionbasepath}ogg_host_list.txt
-send_notification "$trgappname"_Overlay_abend "Invalid database name for replication" ${TOADDR} ${RTNADDR} ${CCADDR}
+done < ${custfunctionbasepath}mongo_host_list.txt
+# while IFS=, read -r distro pm; do
+#   printf '%s is the package manager for %s\n' "$pm" "$distro"
+# done < ${custfunctionbasepath}mongo_host_list.txt
+# cat $logfilepath$logfilename

@@ -1,0 +1,3 @@
+list backup summary;
+list backup of archivelog from time = 'sysdate -1';
+quit;
