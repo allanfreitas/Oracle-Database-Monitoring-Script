@@ -10,7 +10,7 @@ exit
 EOFgg
 )
     if [[ "$__resultvar" ]]; then
-        eval $__resultvar="'$mongoresult'"
+        eval "$__resultvar"="'$mongoresult'"
     else
         echo "$mongoresult"
     fi

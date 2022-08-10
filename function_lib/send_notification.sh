@@ -1,6 +1,6 @@
 send_notification()
 {
-HDR="`date +%m%d%y`"
+HDR="$(date +%m%d%y)"
 unset ct
 ct=$#
 if [ $ct -lt 3 ]
@@ -17,17 +17,17 @@ else
 	if [ $ct == 3 ]
 	then
 		echo "email toaddress"
-        echo $msg | mail -s $subj $toaddr
+        echo "$msg" | mail -s "$subj" "$toaddr"
 	elif [ $ct == 4 ]
 	then
 		echo "email toaddress with return address"
-		echo $msg | mail -s $subj $toaddr -- -f $rtnaddr
+		echo "$msg" | mail -s "$subj" "$toaddr" -- -f "$rtnaddr"
 	elif [ $ct == 5 ]
         then
 		echo "email toaddress and cc with return address"
 		# Now mail report out with a Return Address (not user thsat ran it)
 		# CC addresses and an TO
-        echo $msg | mail -s $subj -c $ccaddr $toaddr -- -f $rtnaddr
+        echo $msg | mail -s "$subj" -c "$ccaddr" "$toaddr" -- -f "$rtnaddr"
 	else 
 	    echo "In valid number of arguments"
 	fi

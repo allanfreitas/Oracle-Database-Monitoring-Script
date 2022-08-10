@@ -29,6 +29,7 @@ logfilename="$trgdbname"_ogg_status$(date +%a)"_$(date +%F).log"
 . ${functionbasepath}mongo_db_list.sh
 . ${functionbasepath}send_notification.sh
 . ${functionbasepath}gg_info_status.sh
+. ${functionbasepath}netstat_check.sh
 #
 
 #
@@ -102,5 +103,5 @@ case $SHELL in
 ;;
 esac
 
-
+netstat_check ${logfilepath}
 send_notification "$trgappname"_Overlay_abend "Invalid database name for replication" ${TOADDR} ${RTNADDR} ${CCADDR}

@@ -1,5 +1,6 @@
 netstat_check()
 {
+local alert_log=$3
 netstat -s | awk 'NF==1 {
  protocol=$0
  next}
@@ -9,5 +10,5 @@ if (RSTART>0) {
 RSTART=0
 }
 }
-' >> ${logs}/Alert.log
+' >> "${alert_log}"
 }

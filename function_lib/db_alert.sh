@@ -3,11 +3,11 @@ db_alert()
     dbname=$1
     bdump_dir=$2
     logs_dir=$3
-    echo CHECKING DB Alert of ${ORACLE_SID} at `date`
-    export alrt_loc=`cat ${bdump_dir}/bdump.$dbname |grep bdump |${AWK} '{print $1}'`
+    echo CHECKING DB Alert of ${ORACLE_SID} at $(date)
+    export alrt_loc=$(cat ${bdump_dir}/bdump.$dbname |grep bdump |${AWK} '{print $1}')
     if [ -z "$alrt_loc" ]
     then
-        export alrt_loc=`cat ${bdump_dir}/bdump.$dbname |grep trace |${AWK} '{print $1}'`
+        export alrt_loc=$(cat ${bdump_dir}/bdump.$dbname |grep trace |${AWK} '{print $1}')
         echo "New Alert Location" 
     fi
     ${ECHO} "~~~~~~~~~~~ALERT LOCATION : $alrt_loc ~~~~~~~~~~~~\n" >> ${logs_dir}/Alert.log
@@ -37,7 +37,7 @@ ${AWK} 'NF==5 && ($1=="Mon" || $1=="Tue" || $1=="Wed" || $1=="Thu" || \
                 }
         }
         ' ${bdump_dir}/TruncAlert7_$dbname.log > ${bdump_dir}/Ora_alert_${dbname}.log
-ALRTCNT=`cat ${bdump_dir}/Ora_alert_${dbname}.log | wc -l`
+ALRTCNT=$(cat ${bdump_dir}/Ora_alert_${dbname}.log | wc -l)
 ALRTSTA=0
 if [ ${ALRTCNT} -gt ${ALRTSTA} ]; then
     ${ECHO} "\nTotal ORA Alerts count ${ALRTCNT}\n" >> ${logs_dir}/Alert.log

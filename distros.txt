@@ -1,6 +1,0 @@
-Ubuntu,apt
-Debian,apt
-CentOS,yum
-veeramarni@localhost,/usr/local/bin
-Arch Linux,pacman
-Fedora,dnf

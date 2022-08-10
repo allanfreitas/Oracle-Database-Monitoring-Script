@@ -57,7 +57,3 @@ printf '%s is the package manager for %s\n' "$__host_name" "$__home_path"
         echo $now >>$logfilepath$logfilename
     fi
 done < ${custfunctionbasepath}mongo_host_list.txt
-# while IFS=, read -r distro pm; do
-#   printf '%s is the package manager for %s\n' "$pm" "$distro"
-# done < ${custfunctionbasepath}mongo_host_list.txt
-# cat $logfilepath$logfilename
