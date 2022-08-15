@@ -36,7 +36,7 @@ do
         echo "************************"
         echo "database is $db"
         echo "************************"
-        ssh -n "$host" "
+        ssh "$host" "
         ORACLE_SID=${db}; export ORACLE_SID;
         ORACLE_HOME=${home}; export ORACLE_HOME;
         ${home}/bin/sqlplus -s '/as sysdba'
