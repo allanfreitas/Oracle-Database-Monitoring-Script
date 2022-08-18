@@ -1,0 +1,1 @@
+oracle@hostname,__gg__home,__db_home
