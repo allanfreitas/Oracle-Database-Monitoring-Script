@@ -106,15 +106,15 @@ esac
 netstat_check ${logfilepath}
 send_notification "$trgappname"_Overlay_abend "Invalid database name for replication" ${TOADDR} ${RTNADDR} ${CCADDR}
 # Loop through each host name. Use for loop instead of while loop to interact with sqlplus
-grep -v '^ *#' < "${custfunctionbasepath}"100_daily_monitoring_db.csv | while IFS=; read -r host __db_list
+grep -v '^ *#' < "${custfunctionbasepath}"100_daily_monitoring_db.csv | while IFS=, read -r host __db_list
 do
   echo " "
   echo "************************"
   echo "$host"
   echo "************************"
-  if [ $__db_list === "*" ];
+  if [ "$__db_list" == "*" ];
   then
-    db_list=$(ssh $host "cat /etc/oratab|egrep ':N|:Y'|grep -v ^[#+-]|\
+    db_list=$(ssh -n "$host" "cat /etc/oratab|egrep ':N|:Y'|grep -v ^[#+-]|\
             cut -f1 -d':'")
   else
     db_list=__db_list;
@@ -123,7 +123,7 @@ do
   for db in db_list
   do
     # Get the ORACLE_HOME for each database
-    db_home=$(ssh -n $host "cat /etc/oratab|egrep ':N|:Y'|grep -v ^[#+-]|\
+    db_home=$(ssh -n "$host" "cat /etc/oratab|egrep ':N|:Y'|grep -v ^[#+-]|\
     grep ${db}|cut -f2 -d':'")
     echo "************************"
     echo "database is $db"

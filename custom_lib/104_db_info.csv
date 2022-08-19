@@ -1,0 +1,2 @@
+# INFRASTRUCTURE, DB_HOST,     DB_NAME,     DB_HOME(optional),     DB_USERNAME(optional)
+Exadata X8,localhost,*,
