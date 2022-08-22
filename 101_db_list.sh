@@ -46,7 +46,7 @@ do
         archive log list;
         show pdbs;        
         exit;
-       'EOFILE'
+       EOFILE
        "
   done
 done
