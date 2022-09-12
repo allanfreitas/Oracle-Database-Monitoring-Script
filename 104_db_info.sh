@@ -65,6 +65,7 @@ do
       ORACLE_HOME=${db_home}; export ORACLE_HOME;
       db_info ${db_home}
     "
+    echo "\"DB Home\": \"${db_home}\","
     echo "},"
   done
 done

@@ -1,2 +1,4 @@
-# DB_HOST,     DB_NAME,     DB_HOME(optional),     DB_USERNAME(optional)
-localhost,dbname,
+# INFRASTRUCTURE, DB_HOST,     DB_NAME,     DB_HOME(optional),     DB_USERNAME(optional)
+#(example)
+#Exadata X8,localhost,*,
+#Exadata X8,localhost,dbname1|dhname2|dbname3,
