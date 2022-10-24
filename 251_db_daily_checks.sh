@@ -117,7 +117,7 @@ if [ "$smon" == "1" ];then
                         tablespace_alert ${db_home};
                         blocking_sessions ${db_home};
                         active_sessions ${db_home};
-                        rman_backup_status ${db_home};
+                        rman_backup_status ${db_home};## Keep rman function at the end so that json to text format is intact.
                 else
                         echo '\"Database ${db} Mode\": \"${open_mode}\",';
                 fi
